@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.machinetest.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.machinetest.ui.register.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_homeFragment2"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.machinetest.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_addProductFragment"
+            app:destination="@id/addProductFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_allProductFragment"
+            app:destination="@id/allProductFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_orderFragment"
+            app:destination="@id/orderFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addProductFragment"
+        android:name="com.example.machinetest.ui.addProduct.AddProductFragment"
+        android:label="AddProductFragment" />
+    <fragment
+        android:id="@+id/allProductFragment"
+        android:name="com.example.machinetest.ui.allProduct.AllProductFragment"
+        android:label="fragment_all_product"
+        tools:layout="@layout/fragment_all_product" >
+        <action
+            android:id="@+id/action_allProductFragment_to_editProductFragment"
+            app:destination="@id/editProductFragment" />
+        <action
+            android:id="@+id/action_allProductFragment_to_editProductFragment2"
+            app:destination="@id/editProductFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProductFragment"
+        android:name="com.example.machinetest.ui.editProduct.EditProductFragment"
+        android:label="Update" >
+        <argument
+            android:name="currentProduct"
+            app:argType="com.example.machinetest.data.AddTable" />
+        <action
+            android:id="@+id/action_editProductFragment_to_allProductFragment"
+            app:destination="@id/allProductFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.machinetest.ui.cart.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/orderFragment"
+        android:name="com.example.machinetest.ui.order.OrderFragment"
+        android:label="OrderFragment" />
+</navigation>
