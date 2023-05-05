@@ -14,5 +14,6 @@ data class CartTable(
     val price : String,
     val desc : String,
     val category : String,
-    val quantity : String
+    val quantity : String,
+    val productId : String
 )

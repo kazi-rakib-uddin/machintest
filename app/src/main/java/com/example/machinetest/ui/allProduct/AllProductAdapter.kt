@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.machinetest.data.AddTable
 import com.example.machinetest.databinding.CustomAllProductBinding
 
@@ -18,13 +19,13 @@ class AllProductAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        val binding = CustomAllProductBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding =
+            CustomAllProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ViewHolder(binding)
     }
 
-    fun setData(arrayList: ArrayList<AddTable>)
-    {
+    fun setData(arrayList: ArrayList<AddTable>) {
         this.arrayList = arrayList
         notifyDataSetChanged()
     }
@@ -42,43 +43,54 @@ class AllProductAdapter(
         holder.binding.txtPrice.text = "₹ ${arrayList.get(position).price}"
         holder.binding.desc.text = "Desc : ${arrayList.get(position).desc}"
         holder.binding.category.text = "Category : ${arrayList.get(position).category}"
+        holder.binding.image.load(arrayList.get(position).image)
 
         holder.binding.btnEdit.setOnClickListener {
 
-            val action =AllProductFragmentDirections.actionAllProductFragmentToEditProductFragment(currentProduct)
+            val action = AllProductFragmentDirections.actionAllProductFragmentToEditProductFragment(
+                currentProduct
+            )
 
             it.findNavController().navigate(action)
         }
 
         holder.binding.btnAddToCart.setOnClickListener {
 
-            val productName = arrayList.get(position).productName
-            val price = arrayList.get(position).price
-            val desc = arrayList.get(position).desc
-            val category = arrayList.get(position).category
-            val quantity = "1"
+            if (authViewModel.checkProductIsAlreadyInCart(arrayList.get(position).id.toString()))
+            {
+                Toast.makeText(context,"Already in cart",Toast.LENGTH_SHORT).show()
+            }
+            else {
 
-            authViewModel.addToCart(productName =productName, price = price, desc = desc, category = category, quantity = quantity)
+                val productName = arrayList.get(position).productName
+                val price = arrayList.get(position).price
+                val desc = arrayList.get(position).desc
+                val category = arrayList.get(position).category
+                val quantity = "1"
 
-            Toast.makeText(context,"Add to cart successfully",Toast.LENGTH_SHORT).show()
+                authViewModel.addToCart(
+                    productName = productName,
+                    price = price,
+                    desc = desc,
+                    category = category,
+                    quantity = quantity,
+                    productId = arrayList[position].id.toString()
+                )
+
+                Toast.makeText(context, "Add to cart successfully", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }
 
-    inner class ViewHolder(val binding: CustomAllProductBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: CustomAllProductBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
 
-    // method for filtering our recyclerview items.
     fun filterList(filterlist: ArrayList<AddTable>) {
-        // below line is to add our filtered
-        // list in our course array list.
         this.arrayList = filterlist
-        // below line is to notify our adapter
-        // as change in recycler view data.
         notifyDataSetChanged()
     }
-
-
 
 
 }

@@ -13,8 +13,8 @@ interface ContactDeo {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun signup(signUpTable: SignUpTable)
 
-    @Query("SELECT * from signup where email=:emailId and password=:password")
-    suspend fun login(emailId : String, password : String):SignUpTable?
+    @Query("SELECT EXISTS (SELECT * from signup where email=:emailId)")
+    suspend fun emailCheck(emailId : String):Boolean
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addProduct(addTable: AddTable)
@@ -24,6 +24,9 @@ interface ContactDeo {
 
     @Query("SELECT * FROM addProduct")
     fun getAllProduct(): LiveData<List<AddTable>>
+
+    @Query("SELECT EXISTS (SELECT * from cartTable where productId=:productId)")
+    suspend fun checkProductIsAlreadyInCart(productId : String): Boolean
 
     @Query("SELECT EXISTS (SELECT * from signup where email=:emailId and password=:password)")
     suspend fun chechLogin(emailId : String, password: String):Boolean
@@ -53,5 +56,8 @@ interface ContactDeo {
 
     @Query("DELETE from cartTable")
     suspend fun deleteCartTable()
+
+    @Query ("SELECT * FROM addProduct WHERE productName LIKE :productName")
+    fun searchProduct (productName : String):LiveData<List<AddTable>>
 
 }

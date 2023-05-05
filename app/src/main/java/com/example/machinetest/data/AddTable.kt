@@ -1,5 +1,6 @@
 package com.example.machinetest.data
 
+import android.graphics.Bitmap
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -15,4 +16,5 @@ data class AddTable(
     val price : String,
     val desc : String,
     val category : String,
+    val image: Bitmap
 ):Parcelable

@@ -1,5 +1,6 @@
 package com.example.machinetest.ui.editProduct
 
+import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.machinetest.data.AddTable
@@ -13,7 +14,14 @@ import javax.inject.Inject
 class EditProductViewModel @Inject constructor(private val userRepository: UserRepository) : ViewModel() {
 
 
-    fun updateProduct(id :Long ,productName:String,price:String,desc:String,category:String)
+    fun updateProduct(
+        id: Long,
+        productName: String,
+        price: String,
+        desc: String,
+        category: String,
+        image: Bitmap
+    )
     {
         viewModelScope.launch(Dispatchers.IO) {
 
@@ -22,7 +30,8 @@ class EditProductViewModel @Inject constructor(private val userRepository: UserR
                     productName = productName,
                     price = price,
                     desc = desc,
-                    category = category
+                    category = category,
+                    image = image
                 ))
 
 

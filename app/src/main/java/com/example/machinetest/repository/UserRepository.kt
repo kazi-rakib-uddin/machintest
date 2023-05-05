@@ -15,7 +15,7 @@ class UserRepository @Inject constructor(
 
     suspend fun signupUser(signUpTable: SignUpTable) = contactDeo.signup(signUpTable)
 
-    suspend fun loginUser(email : String, password : String) = contactDeo.login(email,password)
+    suspend fun checkRegisterEmail(email : String) = contactDeo.emailCheck(email)
 
      suspend fun checkLogin(email : String, password : String): Boolean {
          val checkLogin = contactDeo.chechLogin(emailId = email, password = password)
@@ -54,5 +54,12 @@ class UserRepository @Inject constructor(
 
     suspend fun deleteCartTable() = contactDeo.deleteCartTable()
 
+    suspend fun checkProductIsAlreadyInCart(productId : String) = contactDeo.checkProductIsAlreadyInCart(productId = productId)
+
+
+    fun searchProduct(productName :String) : LiveData<List<AddTable>>
+    {
+        return contactDeo.searchProduct(productName = productName)
+    }
 
 }

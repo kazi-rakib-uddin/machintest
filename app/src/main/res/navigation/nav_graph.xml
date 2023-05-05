@@ -53,8 +53,7 @@
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment"
-            app:popUpTo="@id/registerFragment"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/registerFragment" />
     </fragment>
     <fragment
         android:id="@+id/addProductFragment"

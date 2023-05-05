@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:hint="Search.."
-            android:visibility="gone"
+            android:visibility="visible"
             >
 
             <com.google.android.material.textfield.TextInputEditText

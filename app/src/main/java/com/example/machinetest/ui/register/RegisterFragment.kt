@@ -77,9 +77,19 @@ class RegisterFragment : Fragment() {
             }
             else
             {
-                authViewModel.signup(userName,email,phone,password)
-                tokenManager.saveToken(email)
-                findNavController().navigate(R.id.action_registerFragment_to_homeFragment2)
+
+                if (authViewModel.checkRegisterEmail(email = email))
+                {
+                    showToast("Email is already exists")
+                }
+                else
+                {
+                    authViewModel.signup(userName,email,phone,password)
+                    tokenManager.saveToken(email)
+                    findNavController().navigate(R.id.action_registerFragment_to_homeFragment2)
+                }
+
+
             }
 
         }

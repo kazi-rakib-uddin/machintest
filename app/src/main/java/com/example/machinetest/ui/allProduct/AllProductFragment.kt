@@ -24,7 +24,6 @@ class AllProductFragment : Fragment() {
     private val authViewModel by viewModels<AllProductViewModel>()
     private lateinit var arrayList : ArrayList<AddTable>
     private lateinit var productAdapter: AllProductAdapter
-    var filterdNames = ArrayList<AddTable>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,11 +63,13 @@ class AllProductFragment : Fragment() {
 
         binding.search.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+                filter(charSequence.toString())
+            }
             override fun afterTextChanged(editable: Editable) {
                 //after the change calling the method and passing the search input
 
-                filter1(editable.toString())
+                //filter1(editable.toString())
             }
         })
 
@@ -77,59 +78,19 @@ class AllProductFragment : Fragment() {
     }
 
 
+
     private fun filter(text: String) {
-       /* //new array list that will hold the filtered data
-        val filterdNames = ArrayList<AddTable>()
 
-        //looping through existing elements
-        for (s in 1..arrayList.size) {
-            //if the existing elements contains the search input
-            if (s.lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault()))) {
-                //adding the element to filtered list
-                filterdNames.add(s)
+        // %" "% because our custom sql query will require that
+        val searchQuery = "%$text%"
+
+        authViewModel.searchProduct(searchQuery).observe(this, Observer {
+
+            if (!searchQuery.isEmpty()) {
+                productAdapter.setData(it as ArrayList<AddTable>)
             }
-        }
+        })
 
-        //calling a method of the adapter class and passing the filtered list
-        adapter.filterList(filterdNames)*/
-
-
-        for (s in arrayList)
-        {
-            if (s.productName.equals(text))
-            {
-                filterdNames.add(s)
-            }
-        }
-
-        productAdapter.setData(filterdNames)
-
-    }
-
-
-
-    private fun filter1(text: String) {
-        // creating a new array list to filter our data.
-        val filteredlist: ArrayList<AddTable> = ArrayList()
-
-        // running a for loop to compare elements.
-        for (item in arrayList) {
-            // checking if the entered string matched with any item of our recycler view.
-            if (item.productName.lowercase(Locale.ROOT).contains(text.lowercase(Locale.ROOT))) {
-                // if the item is matched we are
-                // adding it to our filtered list.
-                filteredlist.add(item)
-            }
-        }
-        if (filteredlist.isEmpty()) {
-            // if no item is added in filtered list we are
-            // displaying a toast message as no data found.
-            Toast.makeText(requireContext(), "No Data Found..", Toast.LENGTH_SHORT).show()
-        } else {
-            // at last we are passing that filtered
-            // list to our adapter class.
-            productAdapter.filterList(filteredlist)
-        }
     }
 
 

@@ -19,16 +19,6 @@ class LoginViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    fun login(email: String, password: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-
-            userRepository.loginUser(email = email, password = password)
-
-        }
-
-    }
-
-
 
     fun checkLogin(email: String, password: String): Boolean {
         Log.d("TAG", "checkLogin: $email $password")

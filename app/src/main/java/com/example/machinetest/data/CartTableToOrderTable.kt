@@ -10,13 +10,3 @@ fun CartTable.toOrderTable():OrderTable{
     )
 }
 
-/*val cartTable :List<CartTable>
-
-val orderTable :List<OrderTable>
-
-fun asdasd()
-{
-    cartTable.forEach {
-        orderTable.add(it.toOrderTable())
-    }
-}*/
